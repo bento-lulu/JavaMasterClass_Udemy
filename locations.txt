@@ -1,0 +1,5 @@
+1,Road
+2,Hill
+3,Building
+4,Valley
+5,Forest

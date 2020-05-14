@@ -1,0 +1,73 @@
+ 
+Hubs
+Hub é um dispositivo que é usado para conectar os hosts em uma rede, permitindo que estes hosts comuniquem um com o outro. Cada host é conectado directamente ao Hub, ligando um cabo da placa da rede do host até a uma porta do Hub.
+Qualquer informação recebida em uma porta do hub, será enviada para todas as portas do Hub.
+Isto significa que se um host envia uma mensagem, o hub envia para todos e todos vão receber, mas quando esta informação chega em cada host, o host vai fazer a informação passar pelas camadas de protocolos até chegar a aplicação que vai processar a informação. Quando esta informação chega na camada de Enlance (Data Link), o host verifica o Endereço MAC (Media Access Control) de destino que esta no frame recebido e compara com o seu próprio Endereço MAC, o host destinatário do frame vai verificar que os endereços MACs são iguais e vai processar a mensagem, mas os outros hosts, vão verificar que os endereços MACs são diferentes e vão ignorar os frames.
+Devido a este comportamento do hub de simplesmente multiplicar a informação recebida e enviar a todas as portas, haverá muita colisão na rede, e não é recomendado para usar em redes de computadores. O Hub cria aquilo que chamamos de Collision Domain, um espaço em que informação destinada a apenas um host (Unicast) é recebida por todos, possibilitando assim existência de colisões na transmissão.
+O Hub assim como o Repeater funciona na Camada Física do modelo OSI, por isso que ele não consegue ler a informação do frame, como os Endereços MAC, limitando-se apenas em multiplicar o sinal recebido.
+
+Bridges
+Bridge é um dispositivo de rede que conecta dois segmentos de redes similares. A sua principal função é de fazer com que as colisões de uma rede não passem para a outra, quebrando assim o Colision Domaim, e diminuindo o trafego nas redes.
+Informação de um Colision Domain só pode passar para outro se for destinado a um host do outro Colision Domain.
+Bridges contem um software, que lê a informação do frame e pode saber em que segmento da rede cada host esta. O bridge funciona na Camada de Enlance (Data Link) do modelo OSI.
+
+Switches
+O switch é um dispositivo de rede que é usado para conectar os hosts em uma rede, permitindo que estes hosts comuniquem um com o outro, mas ao contrario dos Hubs que também fornecem a mesma funcionalidade, o Switch funciona na Camada de Enlace de Dados do modelo OSI, permitindo assim que estes possam ler os frames e os Endereços MACs dos frames, assim como os bridges, mas melhor que bridges, o switch tem a implementação de leitura de frames embutido no hardware, tornando-o assim mais rápido em relação ao bridge.
+Outra vantagem do switch é que ele torna cada porta sua, em um único Colision Domain. 
+O switch contem uma Tabela de Endereços MAC, que guarda a informação que indica em que porta está ligado o host com um certo endereço MAC.
+Quando um switch recebe informação de um host, este verifica na sua tabela para ver em que porta está o host com o endereço indicado no frame, e envia somente para esta porta, eliminando assim colisões.
+
+Roteadores
+Um router é um dispositivo de rede usado para ligar duas ou mais redes. A uma ligação de duas ou mais redes diferentes, damos o nome de internetwork. 
+Um router pode tomar decisões inteligentes sobre o melhor caminho que um packet pode seguir para chegar ao seu destino.
+Os routers funcionam na Camada de Rede do modelo OSI, por isso que estes podem ler informação sobre os packets, vendo os endereços IP de source e destination para poder decidir o melhor caminho para chegar a rede do destinatário.
+
+Firewall
+Firewalls são basicamente os guardas de segurança da rede. Com quase todas as redes de computadores agora ligadas a Internet, segurança é um aspecto muito importante nas redes, devido aos possíveis ataques.
+O firewall protege os recursos da sua LAN dos invasores da Internet. Podemos configurar os firewalls para filtrar packets baseando-se em regras que o administrador de redes define para limitar o tipo de informação que pode se aceder ou transmitir na Internet.
+O firewall pode ser um dispositivo especializado para tal serviço ou pode ser um software implementado em um servidor ou router.
+O firewall normalmente tem duas conexões, uma para a Internet (Lado Público) e outra para a Rede (Lado Privado).
+Numa empresa, o firewall é normalmente o primeiro dispositivo a fazer face a rede externa e por isso é necessario prestart muita atencao na hora do planejamento e implementacao.
+
+Firewall de Primeira Geração
+Baseado em filtro de pacote;
+Capaz de analisar protocolo e porta, sem fazer distinção de sessões existentes ou outras informações no nível de aplicação.
+
+Firewall de Segunda Geração
+Tudo da primeira geração e também inspecionam ate o nível de aplicação.
+Os protocolos do nível da aplicação conversam entre si, usando um conjunto de comandos conhecidos entre eles, cabe ao firewall inspecionar se tais comandos são de fato parte da RFC que define o protocolo.
+
+Firewall de Terceira Geração
+O firewall de inspeção de estado (Stateful Inspection Firewall), não só tem as características da segunda geração, como também tem a capacidade de inspecionar o estado da sessão, se tal sessão já esta estabelecida, se esta tendente a ser fechada, e outros estados da sessão.
+
+Onde Posicionar o Firewall
+O lugar mais comum onde se encontra o firewall numa instituição, e na borda da mesma, onde este separa a rede da empresa, da Internet, colocando-se no meio. Mas o firewall pode ser colocado em outras posicoes na rede, dependendo do projecto ou plano de segurança da empresa. Alguns exemplos são:
+- Um firewall posicionado entre a rede interna e uma rede de-militarizada (DMZ).
+- Firewall posicionado em zonas da rede que precisam mesmo que o seu tráfego seja inspecionado.
+
+Não podemos esperar que o firewall seja a resolução de todos os problemas de segurança. Pois o firewall e apenas mais um dispositivo usado para proteger a rede.
+Exemplos de Firewall: ZoneAlarm, WatchGuard, Comodo Personal Firewall, Comodo Firewall Pro
+
+Firewall de Aplicação Web (WAF)
+O projecto Open Web Application Security Project define o Firewall de Aplicação Web da seguinte maneira:
+“Um appliance (Hardware + Software) ou um filtro que aplica uma serie de regras as conversacoes HTTP. Estas regras geralmente cobrem os ataques mais comuns.”
+O WAF analisa os dados de entrada e com base nas regras definidas, decide se os dados foram bem preenchidos ou não, evitando ataques como Injeção de SQL a uma aplicação que tem falhas de programação para o proteger deste tipo de ataque.
+Exemplos de WAF: Barracuda Web Application Firewall
+
+Balanceador de Carga
+Tem como função balancear a carga de acesso a um determinado destino. No caso  de servidores web por exemplo, podemos ter um endereço IP a representar o servidor web mas que na verdade existam mais de um servidor web e um balanceador de carga a gerir a carga entre os servidores, o balanceador vai decidir para que servidor vai enviar o request do cliente dependendo da carga dos mesmos.
+Exemplos de balanceador de carga: F5
+
+Proxy
+E um sistema intermediário entre a Internet e a rede interna, é ele que recebe requisições de acesso a determinados sites vindos de clientes internos e faz o encaminhamento para o mundo externo (Internet). Mascarando assim os endereços dos clientes internos, pois o mundo fora vai ver o endereço IP da placa do proxy que o liga a Internet, como o remetente da requisição.
+E a medida que ele faz estes encaminhamentos, ele também faz o cache das paginas web em disco local. Com isso, da próxima vez que um cliente interno fizer a requisição para a mesma pagina web, o proxy não precisa mais ir na Internet para a obter, pois vai pegar no seu disco local e responde ao cliente, poupando assim a largura de banda de Internet.
+Exemplo de proxy: Squid
+
+Concentrador VPN
+Um concentrador VPN pode ser um dispositivo de hardware ou um servidor com um sistema operativo que possa agir como um concentrador. O objectivo e de receber conexões VPN usando criptografia no tráfego.
+
+
+Sistema de Detenção de Intrusos
+Sistema de Prevenção de Intrusos
+Filtro de SPAM
+Sistemas UTM
